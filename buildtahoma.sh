@@ -34,7 +34,7 @@ set -e
 # their respective licenses.
 #
 
-000_var () {
+_000_var () {
 
 	CHECK_FOLDER="/opt/buildtahoma/checkfiles/"
 	if [ -e "$CHEK_FOLDER" ]; then
@@ -92,7 +92,7 @@ _001_install () {
 
 }
 
-002_ffmpeg() {
+_002_ffmpeg() {
 
 		if [ ! -e "$CHECK_FFMPEG" ]; then
 
@@ -450,8 +450,24 @@ _008_dpkg() {
 	mv Tahoma2D*.AppImage Tahoma2D/Tahoma2D.AppImage
 
 	echo ">>> Creating Tahoma2D Linux package"
-
 	tar zcf Tahoma2D-linux.tar.gz Tahoma2D
 
 }
 
+ # ======================================================================
+ Main
+ # ======================================================================
+
+_main() {
+
+	_000_var
+	_001_install
+ 	_002_ffmpeg
+  	_003_opencv
+   	_004_mypaint
+    	_005_gphoto
+     	_006_build
+      	_007_apps
+       	_008_dpkg
+	
+}
