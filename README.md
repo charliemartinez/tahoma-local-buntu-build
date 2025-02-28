@@ -16,7 +16,7 @@ Quirinux es una marca registrada de **Charlie Martínez**. ℹ️ Para más info
 ## 🇬🇧 English
 This repository gathers all the official **Tahoma2D** build CI scripts into a single one, tailored for a specific environment. ⚙️ **This meta-script only works with Ubuntu 20.04 and not with later versions.**
 
-🛠️ Developed as part of **Quirinux Tweaks**, this script uses **Charlie Martínez’s** GitHub repositories instead of the official Tahoma2D repositories for building the software. While some improvements from Quirinux Tweaks may be incorporated into the official development, this repository **is not an official Tahoma2D project.**
+🛠️ Made for the development of **Quirinux Tweaks**, this script uses **Charlie Martínez’s** GitHub repositories instead of the official Tahoma2D repositories for building the software. While some improvements from Quirinux Tweaks may be incorporated into the official development, this repository **is not an official Tahoma2D project.**
 
 ### ⚠️ Legal notice
 Tahoma2D and OpenToonz are registered trademarks of their respective owners and **are not related to Quirinux.**
