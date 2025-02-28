@@ -37,7 +37,7 @@ set -e
 _000_var () {
 	REPO_URL="https://github.com/charliemartinez/tahoma2d.git" #author script fork
 		if [ ! -e ./tahoma2d ];then 
-		wget -O master.zip https://github.com/charliemartinez/tahoma2d/archive/refs/heads/master.zip && unzip master.zip && rm master.zip
+			wget -O master.zip https://github.com/charliemartinez/tahoma2d/archive/refs/heads/master.zip && unzip master.zip && rm master.zip
   		fi
  	cd ./tahoma2d-master
 	CHECK_FOLDER="/opt/buildtahoma/checkfiles"
