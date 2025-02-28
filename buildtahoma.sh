@@ -35,7 +35,11 @@ set -e
 #
 
 _000_var () {
-
+	REPO_URL="https://github.com/charliemartinez/tahoma2d.git" #author script fork
+		if [ ! -e ./tahoma2d ];then 
+		curl -L -o master.zip https://github.com/charliemartinez/tahoma2d/archive/refs/heads/master.zip && unzip master.zip && rm master.zip
+  		fi
+ 	cd ./tahoma2d
 	CHECK_FOLDER="/opt/buildtahoma/checkfiles"
 	if [ ! -e "$CHECK_FOLDER" ]; then
 		sudo mkdir -p "$CHECK_FOLDER"
