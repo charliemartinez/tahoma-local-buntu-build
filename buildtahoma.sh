@@ -462,12 +462,14 @@ _main() {
 
 	_000_var
 	_001_install
- 	_002_ffmpeg
-  	_003_opencv
-   	_004_mypaint
-    	_005_gphoto
-     	_006_build
-      	_007_apps
-       	_008_dpkg
+	_002_ffmpeg
+	_003_opencv
+	_004_mypaint
+	_005_gphoto
+	_006_build
+	_007_apps
+	_008_dpkg
 	
 }
+
+_main
