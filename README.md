@@ -3,7 +3,7 @@
 ## 🇪🇸 Español
 Este repositorio reúne en uno solo todos los CI-scripts oficiales de build de **Tahoma2D**, adaptados para un entorno específico. ⚙️ **Este meta-script solo funciona con Ubuntu 20.04 y no con versiones superiores.**
 
-🛠️ Desarrollado como parte de las **Quirinux Tweaks**, este script utiliza los repositorios de GitHub de **Charlie Martínez** en lugar de los oficiales de Tahoma2D para la construcción del software. Aunque algunas mejoras de Quirinux Tweaks pueden integrarse en el desarrollo oficial, este repositorio **no es un proyecto oficial de Tahoma2D.**
+🛠️ Hecho para el desarrollo de las **Quirinux Tweaks**, este script utiliza los repositorios de GitHub de **Charlie Martínez** en lugar de los oficiales de Tahoma2D para la construcción del software. Aunque algunas mejoras de Quirinux Tweaks pueden integrarse en el desarrollo oficial, este repositorio **no es un proyecto oficial de Tahoma2D.**
 
 ### ⚠️ Aviso legal
 Tahoma2D y OpenToonz son marcas registradas de sus respectivos propietarios y **no están relacionadas con Quirinux.**
