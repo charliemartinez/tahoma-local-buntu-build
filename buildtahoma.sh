@@ -85,10 +85,10 @@ _001_install () {
 			sudo cp -pr protoc3/include/* /usr/local/include/
 
 			sudo ldconfig
-			touch /opt/
+			
 		fi
 
-	touch "$CHECK_INSTALL"
+	sudo touch "$CHECK_INSTALL"
 
 }
 
@@ -164,7 +164,7 @@ _002_ffmpeg() {
 			sudo ldconfig
 		fi
 
-	touch "$CHECK_FFMPEG"
+	sudo touch "$CHECK_FFMPEG"
 
 }
 
@@ -226,7 +226,7 @@ _003_opencv() {
 			sudo make install
 		fi
 
-	touch "$CHECK_OPENCV"
+	sudo touch "$CHECK_OPENCV"
 
 }
 
@@ -259,7 +259,7 @@ _004_mypaint() {
 
 		fi
 
-	touch "CHECK_LIBMYPAINT"
+	sudo touch "CHECK_LIBMYPAINT"
 
 }
 
@@ -291,7 +291,7 @@ _005_gphoto() {
 
 		fi
 
-	touch "$CHECK_GPHOTO"
+	sudo touch "$CHECK_GPHOTO"
 
 }
 
