@@ -38,7 +38,7 @@ _000_var () {
 
 	CHECK_FOLDER="/opt/buildtahoma/checkfiles"
 	if [ -e "$CHEK_FOLDER" ]; then
-		mkdir -p "$CHEK_FOLDER"
+		mkdir -p "$CHECK_FOLDER"
 	fi
 	CHECK_INSTALL="$CHECK_FOLDER/ok-install"
 	CHECK_FFMPEG="$CHECK_FOLDER/ok-ffmpeg"
