@@ -179,6 +179,8 @@ _002_ffmpeg() {
 			sudo make install
 
 			sudo ldconfig
+
+   			cd ..
 		fi
 
 	sudo touch "$CHECK_FFMPEG"
@@ -246,6 +248,9 @@ _003_opencv() {
 
 			echo ">>> Installing opencv"
 			sudo make install
+
+   			cd ..
+      			cd ..
 		fi
 
 	sudo touch "$CHECK_OPENCV"
@@ -282,6 +287,8 @@ _004_mypaint() {
 			sudo make install
 
 			sudo ldconfig
+   			cd ..
+      			cd ..
 
 		fi
 
@@ -318,6 +325,7 @@ _005_gphoto() {
 			sudo make install
 
 			cd ..
+   			cd ..
 
 		fi
 
@@ -352,6 +360,8 @@ _006_build(){
 		-DWITH_SYSTEM_SUPERLU=ON
 
 	make -j7
+ 	cd ..
+  	cd ..
 
 }
 
@@ -385,6 +395,8 @@ _007_apps(){
 		
 		wget https://github.com/charliemartinez/rhubarb-lip-sync/releases/download/v1.13.0/rhubarb-lip-sync-tahoma2d-linux.zip
 		unzip rhubarb-lip-sync-tahoma2d-linux.zip -d rhubarb
+  	cd ..
+   	cd ..
 
 }
 
