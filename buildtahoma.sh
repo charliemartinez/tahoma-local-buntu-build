@@ -35,15 +35,21 @@ set -e
 #
 
 _000_var () {
+	
 	REPO_URL="https://github.com/charliemartinez/tahoma2d.git" #author script fork
+	
 		if [ ! -e ./tahoma2d-master ];then 
 			wget -O master.zip https://github.com/charliemartinez/tahoma2d/archive/refs/heads/master.zip && unzip master.zip && rm master.zip
   		fi
+  		
  	cd ./tahoma2d-master
+ 	
 	CHECK_FOLDER="/opt/buildtahoma/checkfiles"
+	
 	if [ ! -e "$CHECK_FOLDER" ]; then
 		sudo mkdir -p "$CHECK_FOLDER"
 	fi
+	
 	CHECK_INSTALL="$CHECK_FOLDER/ok-install"
 	CHECK_FFMPEG="$CHECK_FOLDER/ok-ffmpeg"
 	CHECK_OPENCV="$CHECK_FOLDER/ok-opencv"
@@ -59,7 +65,6 @@ _001_install () {
 			sudo add-apt-repository --yes ppa:beineri/opt-qt-5.15.2-focal
 			sudo apt-get update
 			sudo apt-get install -y cmake liblzo2-dev liblz4-dev libfreetype6-dev libpng-dev libegl1-mesa-dev libgles2-mesa-dev libglew-dev freeglut3-dev qt515script libsuperlu-dev qt515svg qt515tools qt515multimedia wget libboost-all-dev liblzma-dev libjson-c-dev libjpeg-turbo8-dev libturbojpeg0-dev libglib2.0-dev qt515serialport
-			# Removed: libopenjpeg-dev 
 			sudo apt-get install -y nasm yasm libgnutls28-dev libunistring-dev libass-dev libbluray-dev libmp3lame-dev libopus-dev libsnappy-dev libtheora-dev libvorbis-dev libvpx-dev libwebp-dev libxml2-dev libfontconfig1-dev libfreetype6-dev libopencore-amrnb-dev libopencore-amrwb-dev libspeex-dev libsoxr-dev libopenjp2-7-dev
 			sudo apt-get install -y python3-pip
 			sudo apt-get install -y build-essential libgirepository1.0-dev autotools-dev intltool gettext libtool patchelf autopoint libusb-1.0-0 libusb-1.0-0-dev
@@ -99,6 +104,10 @@ _001_install () {
 _002_ffmpeg() {
 
 		if [ ! -e "$CHECK_FFMPEG" ]; then
+		
+			if [ -d "./opensh264" ]; then
+				rm -rf "./opensh265"
+			fi
 
 			cd thirdparty
 
@@ -116,6 +125,10 @@ _002_ffmpeg() {
 
 			cd ..
 
+			if [ -d "./ffmpeg" ]; then
+				rm -rf "./ffmpeg"
+			fi
+			
 			echo ">>> Cloning ffmpeg"
 			git clone -b v4.3.1 https://github.com/charliemartinez/FFmpeg ffmpeg
 
@@ -175,8 +188,13 @@ _002_ffmpeg() {
 _003_opencv() {
 
 		if [ ! -e "$CHECK_OPENCV" ]; then
+		
 			cd thirdparty
 
+			if [ -d "./opencv" ]; then
+				rm -rf "./opencv"
+			fi
+			
 			echo ">>> Cloning opencv"
 			git clone https://github.com/charliemartinez/opencv
 
@@ -239,6 +257,10 @@ _004_mypaint() {
 		if [ ! -e "$CHECK_OPENCV" ]; then
 			cd thirdparty/libmypaint
 
+			if [ -d "./src" ]; then
+				rm -rf "./src"
+			fi
+
 			echo ">>> Cloning libmypaint"
 			git clone https://github.com/charliemartinez/libmypaint src
 
@@ -272,6 +294,10 @@ _005_gphoto() {
 		if [ ! -e "$CHECK_GPHOTO" ]; then
 
 			cd thirdparty
+
+			if [ -d "./libgphoto2_src" ]; then
+				rm -rf "./libgphoto2_src"
+			fi
 
 			echo ">>> Cloning libgphoto2"
 			git clone https://github.com/charliemartinez/libgphoto2.git libgphoto2_src
@@ -310,6 +336,7 @@ _006_build(){
 		if [ ! -d build ]; then
 			mkdir -p build
 		fi
+		
 		cd build
 
 	source /opt/qt515/bin/qt515-env.sh
@@ -335,22 +362,27 @@ _007_apps(){
 		if [ ! -d apps ]; then
 			mkdir -p apps
 		fi
+		
 	cd apps
 	echo "*" >| .gitignore
 
 	echo ">>> Getting FFmpeg"
+	
 		if [ -d ffmpeg ]; then
 			rm -rf ffmpeg
 		fi
+		
 	wget https://github.com/charliemartinez/FFmpeg/releases/download/v5.0.0/ffmpeg-5.0.0-linux64-static-lgpl.zip
 	unzip ffmpeg-5.0.0-linux64-static-lgpl.zip 
 	mv ffmpeg-5.0.0-linux64-static-lgpl ffmpeg
 
 
 	echo ">>> Getting Rhubarb Lip Sync"
+	
 		if [ -d rhubarb ]; then
 			rm -rf rhubarb ]
 		fi
+		
 		wget https://github.com/charliemartinez/rhubarb-lip-sync/releases/download/v1.13.0/rhubarb-lip-sync-tahoma2d-linux.zip
 		unzip rhubarb-lip-sync-tahoma2d-linux.zip -d rhubarb
 
@@ -372,6 +404,7 @@ _008_dpkg() {
 		if [ -d appdir ]; then
 			rm -rf appdir
 		fi
+		
 	mkdir -p appdir/usr
 
 	echo ">>> Copy and configure Tahoma2D installation in appDir"
