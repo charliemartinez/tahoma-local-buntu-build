@@ -106,7 +106,7 @@ _002_ffmpeg() {
 		if [ ! -e "$CHECK_FFMPEG" ]; then
 		
 			if [ -d "./opensh264" ]; then
-				rm -rf "./opensh265"
+				rm -rf "./opensh264"
 			fi
 
 			cd thirdparty
