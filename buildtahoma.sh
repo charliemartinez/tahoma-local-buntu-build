@@ -184,7 +184,7 @@ _003_opencv() {
 			echo "*" >| .gitignore
 
 				if [ ! -d build ]; then
-					mkdir build
+					mkdir -p build
 				fi
 			cd build
 
@@ -308,7 +308,7 @@ _006_build(){
 	cd toonz
 
 		if [ ! -d build ]; then
-			mkdir build
+			mkdir -p build
 		fi
 		cd build
 
@@ -333,7 +333,7 @@ _007_apps(){
 	cd thirdparty
 
 		if [ ! -d apps ]; then
-			mkdir apps
+			mkdir -p apps
 		fi
 	cd apps
 	echo "*" >| .gitignore
@@ -385,7 +385,7 @@ _008_dpkg() {
 		if [ -d Tahoma2D ]; then
 			rm -rf Tahoma2D
 		fi
-	mkdir Tahoma2D
+	mkdir -p Tahoma2D
 
 	echo ">>> Copying stuff to Tahoma2D/tahomastuff"
 
