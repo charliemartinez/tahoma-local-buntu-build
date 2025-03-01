@@ -105,11 +105,11 @@ _002_ffmpeg() {
 
 		if [ ! -e "$CHECK_FFMPEG" ]; then
 		
+			cd thirdparty
+
 			if [ -d "openh264" ]; then
 				rm -rf "openh264"
 			fi
-
-			cd thirdparty
 
 			echo ">>> Cloning openH264"
 			git clone https://github.com/cisco/openh264.git openh264
