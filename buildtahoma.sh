@@ -105,8 +105,8 @@ _002_ffmpeg() {
 
 		if [ ! -e "$CHECK_FFMPEG" ]; then
 		
-			if [ -d "./opensh264" ]; then
-				rm -rf "./opensh264"
+			if [ -d "openh264" ]; then
+				rm -rf "openh264"
 			fi
 
 			cd thirdparty
@@ -125,8 +125,8 @@ _002_ffmpeg() {
 
 			cd ..
 
-			if [ -d "./ffmpeg" ]; then
-				rm -rf "./ffmpeg"
+			if [ -d "ffmpeg" ]; then
+				rm -rf "ffmpeg"
 			fi
 			
 			echo ">>> Cloning ffmpeg"
@@ -191,8 +191,8 @@ _003_opencv() {
 		
 			cd thirdparty
 
-			if [ -d "./opencv" ]; then
-				rm -rf "./opencv"
+			if [ -d "opencv" ]; then
+				rm -rf "opencv"
 			fi
 			
 			echo ">>> Cloning opencv"
@@ -257,8 +257,8 @@ _004_mypaint() {
 		if [ ! -e "$CHECK_OPENCV" ]; then
 			cd thirdparty/libmypaint
 
-			if [ -d "./src" ]; then
-				rm -rf "./src"
+			if [ -d "src" ]; then
+				rm -rf "src"
 			fi
 
 			echo ">>> Cloning libmypaint"
@@ -295,8 +295,8 @@ _005_gphoto() {
 
 			cd thirdparty
 
-			if [ -d "./libgphoto2_src" ]; then
-				rm -rf "./libgphoto2_src"
+			if [ -d "libgphoto2_src" ]; then
+				rm -rf "libgphoto2_src"
 			fi
 
 			echo ">>> Cloning libgphoto2"
