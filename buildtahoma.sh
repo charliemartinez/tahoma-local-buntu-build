@@ -41,12 +41,12 @@ _000_var () {
 	OPTS=""
 	SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-	# Verify if the script is inside the ci-scripts/linux/local-build directory.
-	if [[ "$SCRIPT_DIR" == */ci-scripts/linux/local-build ]]; then
-		TAHOMA_DIR="$(realpath "$SCRIPT_DIR/../../..")"
-	else
-		TAHOMA_DIR="$SCRIPT_DIR/tahoma2d"
-	fi
+		# Verify if the script is inside the ci-scripts/linux/local-build directory.
+		if [[ "$SCRIPT_DIR" == */ci-scripts/linux/local-build ]]; then
+			TAHOMA_DIR="$(realpath "$SCRIPT_DIR/../../..")"
+		else
+			TAHOMA_DIR="$SCRIPT_DIR/tahoma2d"
+		fi
 
 	USER_CONFIG_DIR="$HOME/.config/Tahoma2D"
 	STUFF_DIR="$TAHOMA_DIR/stuff"
@@ -59,6 +59,9 @@ _000_var () {
 
 	# Checkfiles:
 	CHECK_DIR="$SCRIPT_DIR/checkfiles"
+		if [ ! -e "$CHECK_DIR" ]; then 
+			mkdir -p $CHECK_DIR
+		fi
 	CHECKFILE_PACKAGES="$CHECK_DIR/ok-packages"
 	CHECKFILE_MPAINT="$CHECK_DIR/ok-opencv"
 	CHECKFILE_FFMPEG="$CHECK_DIR/ok-ffmpeg"
