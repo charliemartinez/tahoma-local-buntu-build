@@ -34,28 +34,49 @@ set -e
 # their respective licenses.
 #
 
-000_var () {
+_000_var () {
 
-	CHECK_FOLDER="/opt/buildtahoma/checkfiles/"
-	if [ -e "$CHEK_FOLDER" ]; then
-		mkdir -p "$CHEK_FOLDER"
+	REPO_URL="https://github.com/tahoma2d/tahoma2d.git"
+	#REPO_URL="https://github.com/charliemartinez/tahoma2d.git" #author script fork
+	OPTS=""
+	SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+
+	# Verify if the script is inside the ci-scripts/linux/local-build directory.
+	if [[ "$SCRIPT_DIR" == */ci-scripts/linux/local-build ]]; then
+		TAHOMA_DIR="$(realpath "$SCRIPT_DIR/../../..")"
+	else
+		TAHOMA_DIR="$SCRIPT_DIR/tahoma2d"
 	fi
-	CHECK_INSTALL="$CHECK_FOLDER/ok-install"
-	CHECK_FFMPEG="$CHECK_FOLDER/ok-ffmpeg"
-	CHECK_OPENCV="$CHECK_FOLDER/ok-opencv"
-	CHECK_MYPAINT="$CHECK_FOLDER/ok-mypaint"
-	CHECK_GPHOTO="$CHECK_FOLDER/ok-gphoto"
+
+	USER_CONFIG_DIR="$HOME/.config/Tahoma2D"
+	STUFF_DIR="$TAHOMA_DIR/stuff"
+	THIRDPARTY_DIR="$TAHOMA_DIR/thirdparty"
+	LIBTIFF_DIR="$THIRDPARTY_DIR/tiff-4.2.0"
+	TOONZ_DIR="$TAHOMA_DIR/toonz"
+	BUILD_DIR="$TOONZ_DIR/build"
+	BIN_DIR="$BUILD_DIR/bin"
+	SOURCES_DIR="$TOONZ_DIR/sources"
+
+	# Checkfiles:
+	CHECK_DIR="$SCRIPT_DIR/checkfiles"
+	CHECKFILE_PACKAGES="$CHECK_DIR/ok-packages"
+	CHECKFILE_MPAINT="$CHECK_DIR/ok-opencv"
+	CHECKFILE_FFMPEG="$CHECK_DIR/ok-ffmpeg"
+	CHECKFILE_GPHOTO="$CHECK_DIR/ok-gphoto"
+	CHECKFILE_MPAINT="$CHECK_DIR/ok-mpaint"
+	CHECKFILE_RHUBARB="$CHECK_DIR/ok-rhubarb"
+
 
 }
 
 _001_install () {
 
-		if [ ! -e "$CHECK_INSTALL" ]; then 
+		if [ ! -e "$CHECKFILE_PACKAGES" ]; then 
 
 			sudo add-apt-repository --yes ppa:beineri/opt-qt-5.15.2-focal
 			sudo apt-get update
-			sudo apt-get install -y cmake liblzo2-dev liblz4-dev libfreetype6-dev libpng-dev libegl1-mesa-dev libgles2-mesa-dev libglew-dev freeglut3-dev qt515script libsuperlu-dev qt515svg qt515tools qt515multimedia wget libboost-all-dev liblzma-dev libjson-c-dev libjpeg-turbo8-dev libturbojpeg0-dev libglib2.0-dev qt515serialport
-			# Removed: libopenjpeg-dev 
+			sudo apt-get install build-essential git make
+			sudo apt-get install -y python2 cmake liblzo2-dev liblz4-dev libfreetype6-dev libpng-dev libegl1-mesa-dev libgles2-mesa-dev libglew-dev freeglut3-dev qt515script libsuperlu-dev qt515svg qt515tools qt515multimedia wget libboost-all-dev liblzma-dev libjson-c-dev libjpeg-turbo8-dev libturbojpeg0-dev libglib2.0-dev qt515serialport
 			sudo apt-get install -y nasm yasm libgnutls28-dev libunistring-dev libass-dev libbluray-dev libmp3lame-dev libopus-dev libsnappy-dev libtheora-dev libvorbis-dev libvpx-dev libwebp-dev libxml2-dev libfontconfig1-dev libfreetype6-dev libopencore-amrnb-dev libopencore-amrwb-dev libspeex-dev libsoxr-dev libopenjp2-7-dev
 			sudo apt-get install -y python3-pip
 			sudo apt-get install -y build-essential libgirepository1.0-dev autotools-dev intltool gettext libtool patchelf autopoint libusb-1.0-0 libusb-1.0-0-dev
@@ -85,18 +106,18 @@ _001_install () {
 			sudo cp -pr protoc3/include/* /usr/local/include/
 
 			sudo ldconfig
-			touch /opt/
+
 		fi
 
-	touch "$CHECK_INSTALL"
+	touch "$CHECKFILE_PACKAGES"
 
 }
 
-002_ffmpeg() {
+_002_ffmpeg() {
 
-		if [ ! -e "$CHECK_FFMPEG" ]; then
+		if [ ! -e "$CHECKFILE_FFMPEG" ]; then
 
-			cd thirdparty
+			cd "$THIRDPARTY_DIR"
 
 			echo ">>> Cloning openH264"
 			git clone https://github.com/cisco/openh264.git openh264
@@ -164,14 +185,14 @@ _001_install () {
 			sudo ldconfig
 		fi
 
-	touch "$CHECK_FFMPEG"
+	touch "$CHECKFILE_FFMPEG"
 
 }
 
 _003_opencv() {
 
-		if [ ! -e "$CHECK_OPENCV" ]; then
-			cd thirdparty
+		if [ ! -e "$CHECKFILE_MPAINT" ]; then
+			cd "$THIRDPARTY_DIR"
 
 			echo ">>> Cloning opencv"
 			git clone https://github.com/charliemartinez/opencv
@@ -226,14 +247,14 @@ _003_opencv() {
 			sudo make install
 		fi
 
-	touch "$CHECK_OPENCV"
+	touch "$CHECKFILE_MPAINT"
 
 }
 
 _004_mypaint() {
 
-		if [ ! -e "$CHECK_OPENCV" ]; then
-			cd thirdparty/libmypaint
+		if [ ! -e "$CHECKFILE_MPAINT" ]; then
+			cd $THIRDPARTY_DIR/libmypaint
 
 			echo ">>> Cloning libmypaint"
 			git clone https://github.com/charliemartinez/libmypaint src
@@ -259,15 +280,15 @@ _004_mypaint() {
 
 		fi
 
-	touch "CHECK_LIBMYPAINT"
+	touch "CHECK_MYPAINT"
 
 }
 
 _005_gphoto() {
 
-		if [ ! -e "$CHECK_GPHOTO" ]; then
+		if [ ! -e "$CHECKFILE_GPHOTO" ]; then
 
-			cd thirdparty
+			cd "$THIRDPARTY_DIR"
 
 			echo ">>> Cloning libgphoto2"
 			git clone https://github.com/charliemartinez/libgphoto2.git libgphoto2_src
@@ -291,13 +312,13 @@ _005_gphoto() {
 
 		fi
 
-	touch "$CHECK_GPHOTO"
+	touch "$CHECKFILE_GPHOTO"
 
 }
 
 _006_build(){
 
-	pushd thirdparty/tiff-4.2.0
+	pushd $THIRDPARTY_DIR/tiff-4.2.0
 	CFLAGS="-fPIC" CXXFLAGS="-fPIC" ./configure --disable-jbig --disable-webp && make
 	popd
 
@@ -310,7 +331,7 @@ _006_build(){
 
 	source /opt/qt515/bin/qt515-env.sh
 
-		if [ -d ../../thirdparty/canon/Header ]; then
+		if [ -d "$THIRDPARTY_DIR/canon/Header" ]; then
 			export CANON_FLAG=-DWITH_CANON=ON
 		fi
 
@@ -326,7 +347,7 @@ _006_build(){
 
 _007_apps(){
 
-	cd thirdparty
+	cd "$THIRDPARTY_DIR"
 
 		if [ ! -d apps ]; then
 			mkdir apps
@@ -391,29 +412,29 @@ _008_dpkg() {
 
 	find Tahoma2D/tahomastuff -name .gitkeep -exec rm -f {} \;
 
-		if [ -d ../../thirdparty/apps/ffmpeg/bin ]; then
+		if [ -d "$THIRDPARTY_DIR/apps/ffmpeg/bin" ]; then
 			echo ">>> Copying FFmpeg to Tahoma2D/ffmpeg"
 			if [ -d Tahoma2D/ffmpeg ]; then
 				rm -rf Tahoma2D/ffmpeg
 			fi
 			mkdir -p Tahoma2D/ffmpeg
-			cp -R ../../thirdparty/apps/ffmpeg/bin/ffmpeg ../../thirdparty/apps/ffmpeg/bin/ffprobe Tahoma2D/ffmpeg
+			cp -R $THIRDPARTY_DIR/apps/ffmpeg/bin/ffmpeg $THIRDPARTY_DIR/apps/ffmpeg/bin/ffprobe Tahoma2D/ffmpeg
 			chmod -R 755 Tahoma2D/ffmpeg
 		fi
 
-		if [ -d ../../thirdparty/apps/rhubarb ]; then
+		if [ -d "$THIRDPARTY_DIR/apps/rhubarb" ]; then
 			echo ">>> Copying Rhubarb Lip Sync to Tahoma2D/rhubarb"
 			if [ -d Tahoma2D/rhubarb ]; then
 			  rm -rf Tahoma2D/rhubarb
 			fi
 			mkdir -p Tahoma2D/rhubarb
-			cp -R ../../thirdparty/apps/rhubarb/rhubarb ../../thirdparty/apps/rhubarb/res Tahoma2D/rhubarb
+			cp -R $THIRDPARTY_DIR/apps/rhubarb/rhubarb $THIRDPARTY_DIR/apps/rhubarb/res Tahoma2D/rhubarb
 			chmod 755 -R Tahoma2D/rhubarb
 		fi
 
-		if [ -d ../../thirdparty/canon/Library ]; then
+		if [ -d "$THIRDPARTY_DIR/canon/Library" ]; then
 			echo ">>> Copying canon libraries"
-			cp -R ../../thirdparty/canon/Library/x86_64/* appdir/usr/lib
+			cp -R $THIRDPARTY_DIR/canon/Library/x86_64/* appdir/usr/lib
 		fi
 
 	echo ">>> Copying libghoto2 supporting directories"
@@ -454,3 +475,22 @@ _008_dpkg() {
 	tar zcf Tahoma2D-linux.tar.gz Tahoma2D
 
 }
+
+# ======================================================================
+# Main
+# ======================================================================
+
+function _main() {
+
+	_000_var
+	_001_install
+	_002_ffmpeg
+	_003_opencv
+	_004_mypaint
+	_005_gphoto
+	_006_build
+	_007_apps
+	_008_dpkg
+
+}
+_main
