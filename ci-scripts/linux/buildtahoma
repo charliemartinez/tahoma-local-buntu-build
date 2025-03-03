@@ -37,7 +37,7 @@ set -e
 _000_var () {
 
 	CHECK_FOLDER="/opt/buildtahoma/checkfiles"
-	if [ -e "$CHEK_FOLDER" ]; then
+	if [ ! -e "$CHEK_FOLDER" ]; then
 		mkdir -p "$CHEK_FOLDER"
 	fi
 	CHECK_INSTALL="$CHECK_FOLDER/ok-install"
@@ -472,3 +472,4 @@ function _main() {
 	_008_dpkg
 
 }
+_main
