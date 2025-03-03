@@ -36,7 +36,7 @@ set -e
 
 _000_var () {
 
-	CHECK_FOLDER="/opt/buildtahoma/checkfiles/"
+	CHECK_FOLDER="/opt/buildtahoma/checkfiles"
 	if [ -e "$CHEK_FOLDER" ]; then
 		mkdir -p "$CHEK_FOLDER"
 	fi
