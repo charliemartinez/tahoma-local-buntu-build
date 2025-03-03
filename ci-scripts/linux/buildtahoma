@@ -472,3 +472,5 @@ function _main() {
 	_008_dpkg
 
 }
+
+_main
